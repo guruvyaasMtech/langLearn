@@ -12,8 +12,13 @@ export const useAuthStore = defineStore({
     returnUrl: "/user-home",
     tempEmail: "",
     uid: "",
+    toggleLanguagePopup: false,
   }),
   actions: {
+    async triggerLanguagePopup() {
+      debugger;
+      this.toggleLanguagePopup = !this.toggleLanguagePopup;
+    },
     async login(username, password) {
       const alertStore = useAlertStore();
       alertStore.clear();

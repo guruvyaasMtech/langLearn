@@ -4,13 +4,14 @@ import { fetchWrapper } from "@/helpers";
 import { useAuthStore } from "@/stores";
 import axios from "axios";
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/api/users`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/api/language`;
 
 export const useUsersStore = defineStore({
   id: "users",
   state: () => ({
     users: {},
     user: {},
+    userLangData: null,
   }),
   actions: {
     async register(user) {
@@ -22,11 +23,12 @@ export const useUsersStore = defineStore({
       return response;
     },
     async getUserLangData() {
+      const authStore = useAuthStore();
       try {
         const response = await axios.get(
-          `${baseUrl}/getUserLangData?user_id=${authStore.user.uid}`
+          `${baseUrl}/getUserLangData?user_id=${authStore.user.id}`
         );
-        console.log("response", response);
+        this.userLangData = response.data;
         return response.data;
       } catch (error) {
         console.error("Error fetching language data:", error);
@@ -42,7 +44,18 @@ export const useUsersStore = defineStore({
         return null;
       }
     },
-
+    async saveUserLangData(data) {
+      try {
+        const response = await axios.post(
+          `${baseUrl}?user_id=${data.user_id}&language_id=${data.language_id}&profiency=${data.profiency}`,
+          data
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching languages:", error);
+        return null;
+      }
+    },
     async getAll() {
       this.users = { loading: true };
       try {

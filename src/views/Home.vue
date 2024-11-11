@@ -7,12 +7,12 @@ import ForgotPassword from "./account/ForgotPassword.vue";
 import ChangePassword from "./account/ChangePassword.vue";
 import { ref } from "vue";
 import Login from "./account/Login.vue";
-
+import selectlanguage from "./account/selectlanguage.vue";
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 const route = useRouter();
 const currentComponent = ref(null);
-
+const showProfileChanges = ref(false);
 function navigateToLogin() {
   currentComponent.value = Login;
 }
@@ -25,6 +25,9 @@ function navigateToForgotPassword() {
 }
 function navigateToChangePassword() {
   currentComponent.value = ChangePassword;
+}
+function navigateToLanguageChange() {
+  currentComponent.value = selectlanguage;
 }
 function closeModal() {
   currentComponent.value = null;
@@ -46,15 +49,20 @@ function handleLoginSuccess(data) {
       <div class="overlay"></div>
     </div>
 
-    <div v-if="!authStore.user" class="content col-md-9">
-      <p class="catchline">Your Gateway to Language Mastery.</p>
-      <p class="catchline">
+    <div class="content col-md-9">
+      <p v-if="!authStore.user" class="catchline">
+        Your Gateway to Language Mastery.
+      </p>
+      <p v-if="!authStore.user" class="catchline">
         A Single Stop solution to make you language learning journey
       </p>
-
+      <p v-if="authStore.user" class="catchline">
+        Welcome, {{ authStore.user.full_name }}
+      </p>
       <transition name="fade">
         <div class="button-container">
           <button
+            v-if="!authStore.user"
             type="button"
             class="btn btn-warning"
             @click="navigateToLogin"
@@ -63,6 +71,7 @@ function handleLoginSuccess(data) {
           </button>
           &nbsp;
           <button
+            v-if="!authStore.user"
             type="button"
             class="btn btn-warning"
             @click="navigateToRegister"
@@ -71,10 +80,6 @@ function handleLoginSuccess(data) {
           </button>
         </div>
       </transition>
-    </div>
-
-    <div v-else>
-      <p>Welcome, {{ authStore.user.full_name }}</p>
     </div>
   </div>
 
