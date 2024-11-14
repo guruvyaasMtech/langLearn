@@ -12,8 +12,18 @@ export const useUsersStore = defineStore({
     users: {},
     user: {},
     userLangData: null,
+    materials: [],
   }),
   actions: {
+    async getVocablaryData(prof) {
+      const authStore = useAuthStore();
+
+      const responnse = await axios.get(
+        `${baseUrl}/getVocablaryData?user_id=${authStore.user.id}&profiency=${prof}`
+      );
+      this.materials = responnse.data;
+      return responnse.data;
+    },
     async register(user) {
       const response = await axios.post(`${baseUrl}/create`, user, {
         headers: {

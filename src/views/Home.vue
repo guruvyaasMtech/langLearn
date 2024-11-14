@@ -8,6 +8,7 @@ import ChangePassword from "./account/ChangePassword.vue";
 import { ref } from "vue";
 import Login from "./account/Login.vue";
 import selectlanguage from "./account/selectlanguage.vue";
+import languageMaterials from "./account/languageMaterials.vue";
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 const route = useRouter();
@@ -78,6 +79,7 @@ function handleLoginSuccess(data) {
           >
             Begin Your Journey
           </button>
+          <language-materials v-if="authStore.user" />
         </div>
       </transition>
     </div>
@@ -134,7 +136,7 @@ function handleLoginSuccess(data) {
 }
 
 .content {
-  padding-top: 20%;
+  padding-top: 3%;
   color: #fff;
 }
 
