@@ -24,14 +24,7 @@ export const useUsersStore = defineStore({
       this.materials = responnse.data;
       return responnse.data;
     },
-    async register(user) {
-      const response = await axios.post(`${baseUrl}/create`, user, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return response;
-    },
+
     async getUserLangData() {
       const authStore = useAuthStore();
       try {

@@ -17,7 +17,7 @@
 
     <div class="lesson-container">
       <iframe
-        v-if="selectedLessonUrl"
+        v-if="selectedLessonUrl && selectedLessonUrl != 'grammar1'"
         :width="560"
         :height="315"
         :src="selectedLessonUrl || filteredMaterials[0].content_url"
@@ -26,6 +26,16 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
       ></iframe>
+      <div v-else>
+        <video
+          v-if="filteredMaterials.length"
+          :width="560"
+          :height="315"
+          controls
+        >
+          <source src="../../assets/grammar1.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
   </div>
 </template>

@@ -1,16 +1,19 @@
 <script setup>
 import { useAuthStore } from "@/stores";
+import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
+const route = useRouter();
+
+function logout() {
+  authStore.logout();
+}
 </script>
 
 <template>
   <nav v-show="authStore.user" class="navbar navbar-expand navbar-dark bg-dark">
     <div class="navbar-nav">
-      <button
-        @click="authStore.logout()"
-        class="btn btn-link nav-item nav-link"
-      >
+      <button @click="logout" class="btn btn-link nav-item nav-link">
         Logout
       </button>
       <button

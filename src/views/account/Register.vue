@@ -6,6 +6,8 @@ import { Alert } from "@/components";
 import { useUsersStore, useAlertStore } from "@/stores";
 import { router } from "@/router";
 import { onMounted } from "vue";
+import { useAuthStore } from "../../stores/auth.store";
+const authStore = useAuthStore();
 const alertStore = useAlertStore();
 const schema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -37,14 +39,13 @@ async function onSubmit(values) {
   const usersStore = useUsersStore();
 
   try {
-    const temp = await usersStore.register(user);
-    debugger;
+    const temp = await authStore.register(user);
     if (temp.data) {
       disableSubmit = true;
       alertStore.success("Registration successful.Please login again");
       router.push("/user-home");
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      emit("loginSuccess", { username: true });
+      await new Promise((resolve) => setTimeout(resolve, 20000));
+      //emit("loginSuccess", { username: true });
     } else {
       alertStore.error("Registration failed.User Already Exists");
     }

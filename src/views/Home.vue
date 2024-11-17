@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores";
 import Register from "./account/Register.vue";
 import ForgotPassword from "./account/ForgotPassword.vue";
@@ -9,6 +8,7 @@ import { ref } from "vue";
 import Login from "./account/Login.vue";
 import selectlanguage from "./account/selectlanguage.vue";
 import languageMaterials from "./account/languageMaterials.vue";
+import { useRouter } from "vue-router";
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 const route = useRouter();

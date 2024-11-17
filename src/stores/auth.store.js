@@ -19,6 +19,14 @@ export const useAuthStore = defineStore({
       debugger;
       this.toggleLanguagePopup = !this.toggleLanguagePopup;
     },
+    async register(user) {
+      const response = await axios.post(`${baseUrl}/create`, user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response;
+    },
     async login(username, password) {
       const alertStore = useAlertStore();
       alertStore.clear();

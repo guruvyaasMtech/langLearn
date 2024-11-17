@@ -43,6 +43,7 @@ import { useAlertStore } from "@/stores";
 import Alert from "@/components/Alert.vue";
 import { onMounted } from "vue";
 const authStore = useAuthStore();
+const alertStore = useAlertStore();
 let isDisabled = false;
 const schema = Yup.object().shape({
   email: Yup.string()

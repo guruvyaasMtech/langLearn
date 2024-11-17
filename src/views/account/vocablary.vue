@@ -17,7 +17,7 @@
 
     <div class="lesson-container">
       <iframe
-        v-if="selectedLessonUrl"
+        v-if="selectedLessonUrl && filteredMaterials.length"
         :width="560"
         :height="315"
         :src="selectedLessonUrl || filteredMaterials[0].content_url"
