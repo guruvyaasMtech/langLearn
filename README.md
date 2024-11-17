@@ -14,4 +14,4 @@ cd backend
 mvn clean package
 open sts /eclipse
 start the server
-localhost:8080
+http://localhost:8080
